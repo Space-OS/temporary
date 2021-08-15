@@ -6,7 +6,7 @@ env:
 task:
   name: Test
   skip: $CIRRUS_BRANCH == 'main'
-  only_if: $CIRRUS_REPO_OWNER == 'ROM-builders'
+  only_if: $CIRRUS_REPO_OWNER == 'Space-OS'
   timeout_in: 2m
   persistent_worker:
     labels:
@@ -28,7 +28,7 @@ task:
     - if [[ $rom_name == LineageOS ]]; then if [[ $branch_name == lineage-15.1 ]]; then rom_name=$rom_name-$branch_name; fi; fi
     - device=$(grep unch $CIRRUS_WORKING_DIR/build_rom.sh -m 1 | cut -d ' ' -f 2 | cut -d _ -f 2 | cut -d - -f 1)
     - grep _jasmine_sprout $CIRRUS_WORKING_DIR/build_rom.sh > /dev/null && device=jasmine_sprout
-    - your_telegram_id=@ROM_builders_junk
+    - your_telegram_id=@Moritokii
     - show=$(cat $CIRRUS_WORKING_DIR/build_rom.sh)
     - curl -s "https://api.telegram.org/bot${bot_api}/sendmessage" -d "text=<code>$device-$rom_name</code> Started
       
@@ -37,12 +37,12 @@ task:
       $show" -d "chat_id=${your_telegram_id}" -d "parse_mode=HTML"
   test_script:
     - set -e
-    - curl -Ls https://github.com/ROM-builders/temporary/raw/main/test.sh | bash
+    - curl -Ls https://github.com/Space-OS/temporary/raw/main/test.sh | bash
 
 task:
   name: Build
   skip: $CIRRUS_BRANCH == 'main'
-  only_if: $CIRRUS_REPO_OWNER == 'ROM-builders'
+  only_if: $CIRRUS_REPO_OWNER == 'Space-OS'
   depends_on:
     - Test
   timeout_in: 4h
@@ -140,7 +140,7 @@ task:
 task:
   name: Post Build
   skip: $CIRRUS_BRANCH == 'main'
-  only_if: $CIRRUS_REPO_OWNER == 'ROM-builders'
+  only_if: $CIRRUS_REPO_OWNER == 'Space-OS'
   skip_notifications: true
   depends_on:
     - Build
@@ -162,7 +162,7 @@ task:
     - if [[ $rom_name == LineageOS ]]; then if [[ $branch_name == lineage-15.1 ]]; then rom_name=$rom_name-$branch_name; fi; fi
     - device=$(grep unch $CIRRUS_WORKING_DIR/build_rom.sh -m 1 | cut -d ' ' -f 2 | cut -d _ -f 2 | cut -d - -f 1)
     - grep _jasmine_sprout $CIRRUS_WORKING_DIR/build_rom.sh > /dev/null && device=jasmine_sprout
-    - your_telegram_id=@ROM_builders_channel
+    - your_telegram_id=@Moritokii
     - curl -s "https://api.telegram.org/bot${bot_api}/sendmessage" -d "text=<code>$device-$rom_name</code> Succeed
       
       https://cirrus-ci.com/build/$CIRRUS_BUILD_ID" -d "chat_id=${your_telegram_id}" -d "parse_mode=HTML"
