@@ -1,7 +1,7 @@
 env:
     CIRRUS_CLONE_DEPTH: 1
     BUILD_HOSTNAME: "cirrus-ci.org"
-    bot_api: "ENCRYPTED[b16032643ad0994cda4822c9d477956f434278d0f786f8e131b585aa4f8510a11f3cd9f6a66a63568d2cba1c4dde25b4]"
+    bot_api: "ENCRYPTED[!2cd006545478c7539dce13539aa46f1ab7d1e5c73283090779e74a5a5f807619ef32dbd8c4d0fc626686233cc4eca97e!]"
 
 task:
   name: Test
